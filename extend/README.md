@@ -13,12 +13,14 @@ function Father(name) {
     this.name = name
     this.attr = "father's attr."
 }
+
 function Super() {
     this.constructor = Child
 }
+
 Super.prototype = Father.prototype
 Child.prototype = new Super() // 继承父类的原型方法
-Child.prototype.constructor = Child
+
 function Child() {
     Father.apply(this, arguments) // 继承父类的属性
     this.attr = "child's attr"
