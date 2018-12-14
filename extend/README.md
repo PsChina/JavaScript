@@ -28,15 +28,26 @@ var child = new Child('Foo')
 
 console.log(child,child.attr)
 
-console.log(child instanceof Child)
+console.log(child instanceof Child, child instanceof Father)
 
 child.eat()
+
+console.log(child.newAttr)
+
+Father.prototype.newAttr = '123'
+
+console.log(child.newAttr)
+
+console.log(Child.prototype.constructor === Child)
 ```
 
 结果
 
 ```log
-{ name: 'Foo', attr: 'father\'s attr.' } 'father\'s attr.'
-true
+Child { name: 'Foo', attr: 'child\'s attr' } 'child\'s attr'
+true true
 Foo eat something.
+undefined
+123
+true
 ```
