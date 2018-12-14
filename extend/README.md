@@ -3,21 +3,25 @@
 如何用 es5 实现继承
 
 ```js
-Father.prototype = { // 父类原型
+Father.prototype = {
     eat:function(){
-        console.log(this.name+'eat something.')
+        console.log(this.name+' eat something.')
     }
 }
 
 function Father(name) {
-    this.name = name // 父类属性
+    this.name = name
     this.attr = "father's attr."
 }
-
-Child.prototype = Father.prototype // 继承父类的原型方法
-
+function Super() {
+    this.constructor = Child
+}
+Super.prototype = Father.prototype
+Child.prototype = new Super() // 继承父类的原型方法
+Child.prototype.constructor = Child
 function Child() {
-    return Father.apply(this, arguments) // 继承父类的属性
+    Father.apply(this, arguments) // 继承父类的属性
+    this.attr = "child's attr"
 }
 ```
 
