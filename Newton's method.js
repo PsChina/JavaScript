@@ -1,9 +1,9 @@
 
 /**
  * @function newtonMethod 该函数是牛顿迭代法的js实现他可以用于求任意一元高次方程的解。（简单版）
- * @param fn 要求的方程的函数
- * @param dfn 要求方程函数的导函数
- * @param x0 在函数x定义域上任意取的一个x值
+ * @param fn 要求根的函数
+ * @param dfn 要求根的函数的导函数
+ * @param x0 在函数x定义域上任意取的一个x值x0
  * @param n 期望迭代的次数
  * @return 该方程的近似解
  * */
@@ -24,7 +24,7 @@ function newtonMethod(fn, dfn, x0, n){
 
 // 如要求 fn(x) = x*x -2 的根
 
-// 就要知道这个方程的函数 导函数 定义域 以及期望的迭代次数
+// 那么参数依次是
 
 // 函数 fn(x) = x*x -2
 
