@@ -9,15 +9,14 @@
  * */
 
 function newtonMethod(fn, dfn, x0, n){
-    let x1
-    const y = fn(x0)    // 在函数有效区间内选取任意 x0 求出点 (x0,y) 其中  y= fn(x0)
-    const k = dfn(x0)   // 使用导函数求出过 点(x0,y) 的切线斜率 k
-    const b = y - k*x0  // 将点(x0,y) 代入直线方程 y=kx+b 求出常数 b 。
-    x1 = (0-b) / k      // 将 y=0代入直线方程 y=kx+b 求出该方程的一次近似解 x1
-    if(n>0){
-        return newtonMethod(fn,dfn,x1,--n) // 当n趋于无穷大时得到该方程的精确解
+    const y = fn(x0)            // 在函数有效区间内选取任意 x0 求出点 (x0,y) 其中  y= fn(x0)
+    const k = dfn(x0)           // 使用导函数求出过 点(x0,y) 的切线斜率 k
+    const b = y - k * x0          // 将点(x0,y) 代入直线方程 y=kx+b 求出常数 b 。
+    const x = (0 - b) / k      // 将 y=0代入直线方程 y=kx+b 求出该方程的一次近似解 x
+    if(--n > 0){
+        return newtonMethod(fn, dfn, x, n) // 当n趋于无穷大时得到该方程的精确解
     }
-    return x1
+    return x
 }
 
 // 例
@@ -44,3 +43,14 @@ function newtonMethod(fn, dfn, x0, n){
 
 // => 1.414213562373095
 
+
+
+// 化简函数 (simplify)
+
+function NTMethod(fn, dfn, x0, n){    
+    const x = x0 - fn(x0) / dfn(x0)    
+    if(n === 0){
+        return x // The approximate solution of fn(x)
+    }
+    return NTMethod(fn, dfn, x, --n)
+}
