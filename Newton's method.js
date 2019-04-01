@@ -47,7 +47,7 @@ function newtonMethod(fn, dfn, x0, n){
 
 // 化简函数 (simplify)
 
-function NTMethod(fn = x=>x, dfn = x=>1, x0 = 0, n = 1){    
+function NTMethod(fn = _=>_, dfn = _=>1, x0 = 0, n = 1){    
     const x = x0 - fn(x0) / dfn(x0)    
     if(n === 1){
         return x // The approximate solution of fn(x)
