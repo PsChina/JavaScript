@@ -1,9 +1,9 @@
 // 扩展reduceMap
-Array.prototype.reduceMap = function({compute,to} = {},fn=_=>undefined) {
+Array.prototype.reduceMap = function({compute,to} = {},reducer=_=>undefined) {
     if(this.length){
         let reduce = typeof this[0] === 'object'&&this[0][to]
         return this.map(item=>{
-            reduce = fn(item[compute],reduce)
+            reduce = reducer(item[compute],reduce)
             item[to] = reduce
             return item
         })
