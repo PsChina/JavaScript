@@ -1,11 +1,14 @@
 // 扩展reduceMap
 Array.prototype.reduceMap = function({dealAttr,changeAttr} = {},fn=_=>undefined) {
-    let reduce = typeof this[0] === 'object'&&this[0][changeAttr]
-    return this.map(item=>{
-        reduce = fn(item[dealAttr],reduce)
-        item[changeAttr] = reduce
-        return item
-    })
+    if(this.length){
+        let reduce = typeof this[0] === 'object'&&this[0][changeAttr]
+        return this.map(item=>{
+            reduce = fn(item[dealAttr],reduce)
+            item[changeAttr] = reduce
+            return item
+        })
+    }
+    return this
 }
 
 /**
