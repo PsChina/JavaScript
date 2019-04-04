@@ -1,9 +1,9 @@
 // 扩展reduceMap
 Array.prototype.reduceMap = function({dealAttr,changeAttr} = {},fn=_=>undefined) {
-    let sum = this[0][changeAttr]
+    let reduce = typeof this[0] === 'object'&&this[0][changeAttr]
     return this.map(item=>{
-        sum = fn(item[dealAttr],sum)
-        item[changeAttr] = sum
+        reduce = fn(item[dealAttr],reduce)
+        item[changeAttr] = reduce
         return item
     })
 }
