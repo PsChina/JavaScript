@@ -1,10 +1,10 @@
 // 扩展reduceMap
-Array.prototype.reduceMap = function({dealAttr,changeAttr} = {},fn=_=>undefined) {
+Array.prototype.reduceMap = function({compute,to} = {},fn=_=>undefined) {
     if(this.length){
-        let reduce = typeof this[0] === 'object'&&this[0][changeAttr]
+        let reduce = typeof this[0] === 'object'&&this[0][to]
         return this.map(item=>{
-            reduce = fn(item[dealAttr],reduce)
-            item[changeAttr] = reduce
+            reduce = fn(item[compute],reduce)
+            item[to] = reduce
             return item
         })
     }
@@ -19,7 +19,7 @@ Array.prototype.reduceMap = function({dealAttr,changeAttr} = {},fn=_=>undefined)
  *          {index:3,totalSonAmount:0,volume:1}
  *       ] 
  * 
- *  arr.reduceMap({dealAttr:'volume',changeAttr:'totalSonAmount'},(a,b)=>a+b)
+ *  arr.reduceMap({compute:'volume',to:'totalSonAmount'},(a,b)=>a+b)
  * 
  * (4) [{…}, {…}, {…}, {…}]
  * 0: {index: 0, totalSonAmount: 1, volume: 1}
