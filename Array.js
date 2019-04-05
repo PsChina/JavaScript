@@ -26,6 +26,4 @@ Array.prototype.reduceMap = function({compute,to} = {},reducer=_=>undefined) {
  * 1: {index: 1, totalSonAmount: 2, volume: 1}
  * 2: {index: 2, totalSonAmount: 3, volume: 1}
  * 3: {index: 3, totalSonAmount: 4, volume: 1}
- * length: 4
- * __proto__: Array(0)
  */
