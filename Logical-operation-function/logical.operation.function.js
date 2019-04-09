@@ -24,8 +24,9 @@ const intersection = function(a){
     return function(b){
         if(a instanceof Array){
             const newSet = new Set()
+            const SetB = new Set(b)
             for(const item of a){
-                if(b.has(item)){
+                if(SetB.has(item)){
                     newSet.add(item)
                 }
             }
@@ -77,6 +78,8 @@ const complementarySet = function(a){ // 全集
                 }
             }
             return cloneA
+        } else {
+            return a - b
         }
     }
 }
