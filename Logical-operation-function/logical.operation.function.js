@@ -79,28 +79,28 @@ const complementarySet = function(a){ // 全集
         if(a instanceof Array){
             const setA = new Set(a)
             const setB = new Set(b)
-            for(const item of setA){
-                if(setB.has(item)){
-                    setB.delete(item)
+            for(const item of setB){
+                if(setA.has(item)){
+                    setA.delete(item)
                 }
             }
-            return [...setB]
+            return [...setA]
         } else if(a instanceof Set) { // week set and map week map to do
-            const setB = new Set(b)
-            for(const item of a){
-                if(setB.has(item)){
-                    setB.delete(item)
+            const setA = new Set(A)
+            for(const item of b){
+                if(setA.has(item)){
+                    setA.delete(item)
                 }
             }
-            return setB
+            return setA
         } else if (a instanceof Object){
-            const cloneB = Object.assign({},b)
-            for(const key in a){
-                if(cloneB.hasOwnProperty(key)){
-                    delete cloneB[key]
+            const cloneA = Object.assign({},a)
+            for(const key in b){
+                if(cloneA.hasOwnProperty(key)){
+                    delete cloneA[key]
                 }
             }
-            return cloneB
+            return cloneA
         }
     }
 }
