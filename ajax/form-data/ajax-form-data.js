@@ -7,6 +7,7 @@ function transformRequest(data) {
     return ret
 }
 
+export default transformRequest
 /**
  ajax({
      url:'xxx',
