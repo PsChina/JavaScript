@@ -262,6 +262,9 @@ class List extends SinglyLinkedList {
   }
   pop() {
     let node = null;
+    if (this.isEmpty()) {
+      return node;
+    }
     if (this.tail.prev) {
       node = this.tail;
       this.tail = this.tail.prev;
