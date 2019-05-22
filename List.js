@@ -25,9 +25,8 @@ class SinglyLinkedList {
       throw new RangeError("Invalid list length");
     }
     if (this._length > length) {
-      for (let i = this._length; i > length; i--) {
-        this.delete(i - 1);
-      }
+      this.tail = this.get(length-1)
+      this.tail.next = null
     } else if (this._length < length) {
       for (let i = this._length; i < length; i++) {
         this._push(undefined);
@@ -247,6 +246,22 @@ class List extends SinglyLinkedList {
   }
   constructor(...rest) {
     super(...rest);
+  }
+  set length(length) {
+    if (length < 0 || !Number.isInteger(length) || isNaN(length)) {
+      throw new RangeError("Invalid list length");
+    }
+    if (this._length > length) {
+      const next = this.get(length)
+      this.tail = next&&next.prev
+      next&&(next.prev = null)
+      this.tail.next = null
+    } else if (this._length < length) {
+      for (let i = this._length; i < length; i++) {
+        this._push(undefined);
+      }
+    }
+    this._length = Number(length);
   }
   _push(data) {
     const node = new Node(data);
