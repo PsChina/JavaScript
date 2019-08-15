@@ -26,3 +26,5 @@ function mergeSort(arr, middle = Math.floor(arr.length / 2) || 1, temp = []){
     return arr;
   }
 }
+
+module.exports = mergeSort;
