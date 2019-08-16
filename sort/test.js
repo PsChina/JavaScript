@@ -5,6 +5,11 @@ describe('sort([1,3,2])',function(){ // 描述 函数排序 [1,3,2]
         assert.deepEqual( sort([1,3,2]), [1,2,3]) // 第一个参数的返回值应该等于第二个参数
     })
 })
+describe('sort([1,3,2,0])',function(){ // 描述 函数排序 [1,3,2]
+    it('should return [0,1,2,3]',function(){ // 应该返回 [1,2,3]
+        assert.deepEqual( sort([1,3,2,0]), [0,1,2,3]) // 第一个参数的返回值应该等于第二个参数
+    })
+})
 describe('sort([-1,-3,-2])',function(){
     it('should return [-3,-2,-1]',function(){
         assert.deepEqual( sort([-1,-3,-2]), [-3,-2,-1] )
