@@ -1,4 +1,4 @@
-var sort = require('./mergeSort')
+var sort = require('./quickSort')
 var assert = require('assert') // 引入摩卡测试 equal 函数所在的包 assert
 describe('sort([1,3,2])',function(){ // 描述 函数排序 [1,3,2]
     it('should return [1,2,3]',function(){ // 应该返回 [1,2,3]
