@@ -39,7 +39,8 @@ function mergePass(arr = [], temp = new Array(arr.length), N = arr.length, lengt
     }
   }
   merge(arr, temp, 0, Math.pow(2,t-1), N);
-  return temp;
+  arr = temp;
+  return arr;
 }
 
 
