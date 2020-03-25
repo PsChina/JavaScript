@@ -13,7 +13,7 @@ MyPromise.prototype.then = function (func) {
     const _this = this;
     return new MyPromise((resolve) => {
         _this.onResolveCallBack.push((data) => {
-            var res = func(data);
+            const res = func(data);
             if (res instanceof MyPromise) {
                 res.then(resolve);
             } else {
