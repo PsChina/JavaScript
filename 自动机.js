@@ -50,13 +50,16 @@ function isInCond(p, c, cb = cond) {
             return undefined;
         }
         const index = s.indexOf(c);
-        if (index > -1) {
-            const res = s.slice(index);
-            return [s.slice(0, index), ...cond(p, cb)(res)];
+        if (index === 0) {
+            return cond(p, cb)(s)
+        }
+        if (index > 0) {
+            const res = s.slice(index)
+            return [s.slice(0, index), ...cond(p, cb)(res)]
         }
     }
 }
 
-console.log(charIsIn('w')('Hello world'))
+console.log(charIsIn('e')('Hello world'))
 
 
