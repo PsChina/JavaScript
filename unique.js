@@ -2,15 +2,15 @@
 function unique(arr) {
     arr.sort();
     const { length } = arr;
-    const newArr = [arr[0]]
+    const newArr = [arr[0]];
     for (let i = 1; i < length; i++) {
         const A = arr[i];
         const B = arr[i - 1];
         if (A !== B) {
             if (A !== A && B !== B) {
-                continue
+                continue;
             }
-            newArr.push(arr[i])
+            newArr.push(arr[i]);
         }
     }
     return newArr;
