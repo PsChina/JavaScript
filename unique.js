@@ -15,3 +15,5 @@ function unique(arr) {
     }
     return newArr;
 }
+
+// {} 没有去重
