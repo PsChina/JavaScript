@@ -1,4 +1,5 @@
 // 相邻不等去重法
+// 缺点{} 没有去重
 function unique(arr) {
     arr.sort();
     const { length } = arr;
@@ -16,10 +17,8 @@ function unique(arr) {
     return newArr;
 }
 
-// {} 没有去重
-
-
 // 利用 hasOwnProperty 去重
+// 缺点所有{}对象只保留第一个
 function _unique(arr = []) {
     const obj = {};
     return arr.filter((item) => {
