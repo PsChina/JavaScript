@@ -17,3 +17,13 @@ function unique(arr) {
 }
 
 // {} 没有去重
+
+
+// 利用 hasOwnProperty 去重
+function _unique(arr = []) {
+    const obj = {};
+    return arr.filter((item) => {
+        const property = typeof item + item;
+        return obj.hasOwnProperty(property) ? false : obj[property] = true;
+    })
+}
