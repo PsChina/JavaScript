@@ -19,3 +19,16 @@ export function doSomeThingWhenDOMVisible(doms: Element[], threshold: number[], 
 // yarn add intersection-observer -S
 
 // import 'intersection-observer';
+
+// 根据默认时区和当地时区将时间转换为当地时间
+export function computedTimeWithDefaultZone(time: Date | number | string, defaultZone: number) {
+  const timezone = -new Date().getTimezoneOffset() / 60
+  const timezoneInterval = timezone - defaultZone
+  let timestamp;
+  if (time instanceof Date) {
+    timestamp = time.getTime()
+  } else {
+    timestamp = new Date(time).getTime()
+  }
+  return new Date(timestamp - timezoneInterval * 1000 * 3600)
+}
