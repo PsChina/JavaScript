@@ -1,3 +1,4 @@
+const p = [];
 (function () {
 
     setTimeout(() => {
