@@ -1,8 +1,30 @@
 export class ToyVue {
     constructor(config) {
         this.template = document.querySelector(config.el)
-        this.data = config.data
-
+        this.data = reactive(config.data)
+        this.traversal(this.template)
+    }
+    traversal(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            if (node.textContent.trim().match(/^{{([\s\S]+)}}$/)) {
+                let name = RegExp.$1.trim()
+                effect(() => node.textContent = this.data[name])
+            }
+        }
+        if (node.nodeType === Node.ELEMENT_NODE) {
+            let attributes = node.attributes;
+            for (const attribute of attributes) {
+                if (attribute.name === 'v-model') {
+                    effect(() => node.value = this.data[attribute.value])
+                    node.addEventListener('input', (event) => { this.data[attribute.value] = event.target.value })
+                }
+            }
+        }
+        if (node.childNodes && node.childNodes.length) {
+            for (let childNode of node.childNodes) {
+                this.traversal(childNode)
+            }
+        }
     }
 }
 
@@ -42,14 +64,4 @@ function reactive(object) {
     })
     return observed
 }
-
-
-let dummy, dummy2
-const counter = reactive({ num: 0, count: 0 })
-effect(() => (dummy = counter.num))
-effect(() => (dummy2 = counter.count))
-console.log(dummy, dummy2)
-counter.num = 7
-counter.count = -7
-console.log(dummy, dummy2)
 
