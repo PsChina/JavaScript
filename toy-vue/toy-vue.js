@@ -16,7 +16,9 @@ export class ToyVue {
             for (const attribute of attributes) {
                 if (attribute.name === 'v-model') {
                     effect(() => node.value = this.data[attribute.value])
-                    node.addEventListener('input', (event) => { this.data[attribute.value] = event.target.value })
+                    node.addEventListener('input', (event) => {
+                        this.data[attribute.value] = event.target.value
+                    })
                 }
             }
         }
