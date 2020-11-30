@@ -2,6 +2,12 @@ export class ToyVue {
     constructor(config) {
         this.template = document.querySelector(config.el)
         this.data = reactive(config.data)
+        this.methods = {}
+        for (let method in config.methods) {
+            this.methods[method] = (...rest) => {
+                config.methods[method].apply(this.data, rest)
+            }
+        }
         this.traversal(this.template)
     }
     traversal(node) {
@@ -14,11 +20,22 @@ export class ToyVue {
         if (node.nodeType === Node.ELEMENT_NODE) {
             let attributes = node.attributes;
             for (const attribute of attributes) {
-                if (attribute.name === 'v-model') {
+                const { name: attributeName } = attribute
+                if (attributeName === 'v-model') {
                     effect(() => node.value = this.data[attribute.value])
                     node.addEventListener('input', (event) => {
                         this.data[attribute.value] = event.target.value
                     })
+                }
+                if (attributeName.match(/^v-bind:([\s\S]+)$/)) {
+                    const attrName = RegExp.$1
+                    const name = attribute.value
+                    effect(() => node.setAttribute(attrName, this.data[name]))
+                }
+                if (attributeName.match(/^v-on:([\s\S]+)$/)) {
+                    const eventName = RegExp.$1
+                    const name = attribute.value
+                    effect(() => node.addEventListener(eventName, this.methods[name]))
                 }
             }
         }

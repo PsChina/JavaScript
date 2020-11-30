@@ -1,6 +1,8 @@
 <div id="app">
     {{ message }}
     <input type="text" v-model="message">
+    <div v-bind:title="message"></div>
+    <button v-on:click="changeMessage">changeMessage</button>
 </div>
 
 <script type="module">
@@ -9,6 +11,11 @@
         el: '#app',
         data: {
             message: 'Hello Vue!'
+        },
+        methods: {
+            changeMessage() {
+                this.message = 'Hello methods'
+            }
         }
     })
 </script>
