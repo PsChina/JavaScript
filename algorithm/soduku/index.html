@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span {
+            box-sizing: border-box;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+
+
+    var input = [["5", "3", ".", ".", "7", ".", ".", ".", "."], ["6", ".", ".", "1", "9", "5", ".", ".", "."], [".", "9", "8", ".", ".", ".", ".", "6", "."], ["8", ".", ".", ".", "6", ".", ".", ".", "3"], ["4", ".", ".", "8", ".", "3", ".", ".", "1"], ["7", ".", ".", ".", "2", ".", ".", ".", "6"], [".", "6", ".", ".", ".", ".", "2", "8", "."], [".", ".", ".", "4", "1", "9", ".", ".", "5"], [".", ".", ".", ".", "8", ".", ".", "7", "9"]]
+
+    var solveSudoku = async function (board) {
+        document.body.innerHTML = ''
+        const lines = [], cloumns = [], boxs = []
+        const { length: lineLength } = board
+        // init
+        for (let i = 0; i < lineLength; i++) {
+            const line = board[i]
+            const { length: cloumnLength } = line
+            for (let j = 0; j < cloumnLength; j++) {
+                const val = board[i][j]
+                const ele = document.createElement('span')
+                ele.textContent = val
+                ele.id = `n${i}${j}`
+                document.body.append(ele)
+                if (!lines[i]) {
+                    lines[i] = []
+                }
+                if (!cloumns[j]) {
+                    cloumns[j] = []
+                }
+                if (!boxs[Math.floor(i / 3)]) {
+                    boxs[Math.floor(i / 3)] = []
+                    if (!boxs[Math.floor(i / 3)][Math.floor(j / 3)]) {
+                        boxs[Math.floor(i / 3)][Math.floor(j / 3)] = []
+                    }
+                } else {
+                    if (!boxs[Math.floor(i / 3)][Math.floor(j / 3)]) {
+                        boxs[Math.floor(i / 3)][Math.floor(j / 3)] = []
+                    }
+                }
+                if (val !== '.') {
+                    const key = val - 1
+                    lines[i][key] = cloumns[j][key] = boxs[Math.floor(i / 3)][Math.floor(j / 3)][key] = true
+                }
+            }
+            document.body.append(document.createElement('br'))
+        }
+        // init end
+
+
+        for (let i = 0; i < lineLength; i++) {
+            const line = board[i]
+            const { length: cloumnLength } = line
+            for (let j = 0; j < cloumnLength; j++) {
+                const val = board[i][j]
+                if (val === '.') {
+                    const res = await fullNum(i * 9 + j)
+                }
+            }
+        }
+
+        async function fullNum(index) {
+            if (index > 80) {
+                return true
+            }
+            const i = Math.floor(index / 9)
+            const j = index - i * 9
+            if (board[i][j] === '.') {
+                for (let k = 0; k < 9; k++) {
+                    if (!lines[i][k] && !cloumns[j][k] && !boxs[Math.floor(i / 3)][Math.floor(j / 3)][k]) {
+                        lines[i][k] = cloumns[j][k] = boxs[Math.floor(i / 3)][Math.floor(j / 3)][k] = true
+                        const dom = document.getElementById(`n${i}${j}`)
+                        dom.textContent = k + 1
+                        dom.style.backgroundColor = 'green'
+                        board[i][j] = `${k + 1}`
+                        //await sleep(300)
+                        const res = await fullNum(index + 1)
+                        if (res === true) {
+                            return true
+                        } else {
+                            lines[i][k] = cloumns[j][k] = boxs[Math.floor(i / 3)][Math.floor(j / 3)][k] = false
+                            dom.textContent = '.'
+                            board[i][j] = '.'
+                            dom.style.backgroundColor = 'white'
+                            continue
+                        }
+                        break
+                    }
+                }
+            } else {
+                return fullNum(index + 1)
+            }
+
+        }
+
+    };
+
+    function sleep(time) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, time);
+        })
+    }
+
+
+
+    solveSudoku(input)
+
+    console.log('input', input)
+
+
+
+</script>
