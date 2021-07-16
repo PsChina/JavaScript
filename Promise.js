@@ -93,3 +93,15 @@ class MyPromise {
         return promise
     }
 }
+
+
+function resolvePromise(x, promise, resolve, reject) {
+    if (x === promise) {
+        return reject(new TypeError('Chaining cycle detected for promise #<Promise>'))
+    }
+    if (x instanceof MyPromise) {
+        x.then(resolve, reject)
+    } else {
+        resolve(x)
+    }
+}
