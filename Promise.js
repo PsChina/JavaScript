@@ -3,6 +3,22 @@ const FULFILLED = 'fulfilled'
 const REJECTED = 'rejected'
 
 class MyPromise {
+    static resolve(parameter) {
+        if (parameter instanceof MyPromise) {
+            return parameter
+        }
+        return new MyPromise(resolve => {
+            resolve(parameter)
+        })
+    }
+    static reject(reason) {
+        if (reason instanceof MyPromise) {
+            return reason
+        }
+        return new MyPromise((resolve, reject) => {
+            reject(reason)
+        })
+    }
     status = PENDING
     onFulFilledCallbacks = []
     onRejctedCallbacks = []
@@ -33,8 +49,9 @@ class MyPromise {
             }
         }
     }
-    then(onFulfilled = value => value, onRejected = reason => { throw reason }) {
-
+    then(onFulfilled, onRejected) {
+        onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value
+        onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason }
         const promise = new MyPromise((resolve, reject) => {
             if (this.status === FULFILLED) {
                 queueMicrotask(() => {
@@ -99,9 +116,60 @@ function resolvePromise(x, promise, resolve, reject) {
     if (x === promise) {
         return reject(new TypeError('Chaining cycle detected for promise #<Promise>'))
     }
-    if (x instanceof MyPromise) {
-        x.then(resolve, reject)
+    if (typeof x === 'object' || typeof x === 'function') {
+        if (x === null) {
+            return resolve(x)
+        }
+        let then
+        try {
+            then = x.then
+        } catch (e) {
+            return reject(e)
+        }
+
+        if (typeof then === 'function') {
+            let called = false
+            try {
+                then.call(x, (value) => {
+                    if (called) {
+                        return
+                    } else {
+                        called = true
+                        resolvePromise(value, promise, resolve, reject)
+                    }
+                }, (reason) => {
+                    if (called) {
+                        return
+                    } else {
+                        called = true
+                        reject(reason)
+                    }
+                })
+            } catch (e) {
+                if (called) {
+                    return
+                } else {
+                    called = true
+                    reject(e)
+                }
+            }
+
+        } else {
+            resolve(x)
+        }
     } else {
         resolve(x)
     }
 }
+
+MyPromise.deferred = function () {
+    var result = {};
+    result.promise = new MyPromise(function (resolve, reject) {
+        result.resolve = resolve;
+        result.reject = reject;
+    });
+
+    return result;
+}
+
+module.exports = MyPromise;
