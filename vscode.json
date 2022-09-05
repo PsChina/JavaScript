@@ -1,0 +1,97 @@
+{
+        "terminal.integrated.defaultProfile.windows": "Git Bash",
+        "workbench.iconTheme": "vscode-icons",
+        "eslint.run": "onType",
+        "eslint.options": {
+                "extensions": [
+                        ".js",
+                        ".vue",
+                        ".json"
+                ]
+        },
+        "editor.codeActionsOnSave": {
+                "source.fixAll.eslint": true
+        },
+        "eslint.validate": [
+                "javascript",
+                "html",
+                "vue"
+        ],
+        "editor.suggestSelection": "first",
+        "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+        "emmet.includeLanguages": {
+                "javascript": "javascriptreact",
+                "wxml": "html"
+        },
+        "[json]": {
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[vue]": {
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[javascript]": {
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "git.autofetch": true,
+        "[html]": {
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "editor.tabSize": 2,
+        "workbench.editorAssociations": {
+                "*.ipynb": "jupyter.notebook.ipynb"
+        },
+        "[typescript]": {
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "terminal.integrated.tabs.enabled": true,
+        "[jsonc]": {
+                "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "fileheader.customMade": {
+                "Author": "hfj",
+                "Date": "",
+                "LastEditors": "hfj",
+                "LastEditTime": "",
+                "Description": ""
+        },
+        "[typescriptreact]": {
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "liveServer.settings.donotShowInfoMsg": true,
+        "files.associations": {
+                "*.cjson": "jsonc",
+                "*.wxss": "css",
+                "*.wxs": "javascript"
+        },
+        "less.compile": {
+                "out": false
+        },
+        "minapp-vscode.disableAutoConfig": true,
+        "minapp-vscode.wxmlFormatter": "prettyHtml",
+        "minapp-vscode.prettyHtml": {
+                "useTabs": false,
+                "tabWidth": 2,
+                "printWidth": 100,
+                "singleQuote": false,
+                "usePrettier": true,
+                "wrapAttributes": false,
+                "sortAttributes": false
+        },
+        "prettier.enableDebugLogs": true,
+        "editor.formatOnSave": true,
+        "workbench.colorTheme": "Dracula",
+        "security.workspace.trust.untrustedFiles": "open",
+        "[less]": {
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "vsicons.dontShowNewVersionMessage": true,
+        "editor.fontSize": 16,
+        "[css]": {
+                "editor.defaultFormatter": "HookyQR.beautify"
+        },
+        "debug.javascript.autoAttachFilter": "disabled",
+        "workbench.editor.enablePreview": false,
+        "git.mergeEditor": false,
+        "git.openDiffOnClick": true,
+        "diffEditor.ignoreTrimWhitespace": false
+}
