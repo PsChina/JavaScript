@@ -35,7 +35,7 @@ module.exports = {
     es6: true,
     "vue/setup-compiler-macros": true,
   },
-  extends: ["taro/vue3", "eslint-config-standard", "prettier"],
+  extends: ['eslint-config-standard', 'prettier'],
   rules: {
     "no-new": "off",
     "no-debugger": "warn",
