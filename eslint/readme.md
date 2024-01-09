@@ -35,7 +35,12 @@ module.exports = {
     es6: true,
     "vue/setup-compiler-macros": true,
   },
-  extends: ['eslint-config-standard', 'prettier'],
+  extends: [
+    'plugin:vue/vue3-strongly-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'eslint-config-standard',
+    'prettier'
+  ],
   rules: {
     "no-new": "off",
     "no-debugger": "warn",
