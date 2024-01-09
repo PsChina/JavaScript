@@ -70,7 +70,8 @@ module.exports = {
     // 禁止不必要的转义字符
     "no-useless-escape": 0,
   },
-  parser: ["vue-eslint-parser", "@typescript-eslint/parser"],
+  // vue 项目
+  parser: 'vue-eslint-parser',
   parserOptions: {
     parser: "@typescript-eslint/parser",
   },
@@ -105,6 +106,8 @@ pnpm install eslint-config-standard prettier -D
 pnpm install prettier-eslint eslint-config-prettier -D
 
 pnpm install vue-eslint-parser -D # 适配vue项目
+
+pnpm install @typescript-eslint/parser # 如果是ts项目则需要安装它
 ```
 
 上面的安装过程中可能会出现缺少前置依赖可以根据提示安装对应版本
