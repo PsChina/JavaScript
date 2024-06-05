@@ -1,133 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        span {
-            box-sizing: border-box;
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            line-height: 50px;
-            border: 1px solid black;
-        }
+      span {
+        box-sizing: border-box;
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border: 1px solid black;
+      }
+      textarea {
+        width: 300px;
+        height: auto;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
-</body>
-
+  <body>
+    <textarea name="" id="" rows="10" placeholder="请输入要解的题">
+    [
+      [0, 0, 0, 2, 0, 6],
+      [0, 0, 0, 0, 0, 3],
+      [0, 0, 5, 0, 3, 1],
+      [6, 3, 0, 4, 0, 0],
+      [5, 0, 0, 0, 0, 0],
+      [1, 0, 3, 0, 0, 0]
+    ] 
+    </textarea>
+    <br />
+    <button onclick="main()">确定</button>
+    <div></div>
+  </body>
 </html>
 
 <script>
+  var input = [
+    ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+    ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+    [".", "9", "8", ".", ".", ".", ".", "6", "."],
+    ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+    ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+    ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+    [".", "6", ".", ".", ".", ".", "2", "8", "."],
+    [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+    [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+  ];
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const textarea = document.querySelector("textarea");
+    textarea.addEventListener("input", autoGrow);
 
-    var input = [["5", "3", ".", ".", "7", ".", ".", ".", "."], ["6", ".", ".", "1", "9", "5", ".", ".", "."], [".", "9", "8", ".", ".", ".", ".", "6", "."], ["8", ".", ".", ".", "6", ".", ".", ".", "3"], ["4", ".", ".", "8", ".", "3", ".", ".", "1"], ["7", ".", ".", ".", "2", ".", ".", ".", "6"], [".", "6", ".", ".", ".", ".", "2", "8", "."], [".", ".", ".", "4", "1", "9", ".", ".", "5"], [".", ".", ".", ".", "8", ".", ".", "7", "9"]]
+    function autoGrow() {
+      this.style.height = "auto";
+      this.style.height = this.scrollHeight + "px";
+    }
+  });
+  // var input = [
+  //   [0, 0, 0, 2, 0, 6],
+  //   [0, 0, 0, 0, 0, 3],
+  //   [0, 0, 5, 0, 3, 1],
+  //   [6, 3, 0, 4, 0, 0],
+  //   [5, 0, 0, 0, 0, 0],
+  //   [1, 0, 3, 0, 0, 0],
+  // ];
 
+  function main() {
+    console.log("run");
+    const textarea = document.querySelector("textarea");
+    input = JSON.parse(textarea.value);
     var solveSudoku = async function (board) {
-        document.body.innerHTML = ''
-        const lines = [], cloumns = [], boxs = []
-        const { length: lineLength } = board
-        // init
-        for (let i = 0; i < lineLength; i++) {
-            const line = board[i]
-            const { length: cloumnLength } = line
-            for (let j = 0; j < cloumnLength; j++) {
-                const val = board[i][j]
-                const ele = document.createElement('span')
-                ele.textContent = val
-                ele.id = `n${i}${j}`
-                document.body.append(ele)
-                if (!lines[i]) {
-                    lines[i] = []
-                }
-                if (!cloumns[j]) {
-                    cloumns[j] = []
-                }
-                if (!boxs[Math.floor(i / 3)]) {
-                    boxs[Math.floor(i / 3)] = []
-                    if (!boxs[Math.floor(i / 3)][Math.floor(j / 3)]) {
-                        boxs[Math.floor(i / 3)][Math.floor(j / 3)] = []
-                    }
-                } else {
-                    if (!boxs[Math.floor(i / 3)][Math.floor(j / 3)]) {
-                        boxs[Math.floor(i / 3)][Math.floor(j / 3)] = []
-                    }
-                }
-                if (val !== '.') {
-                    const key = val - 1
-                    lines[i][key] = cloumns[j][key] = boxs[Math.floor(i / 3)][Math.floor(j / 3)][key] = true
-                }
+      const lines = [],
+        columns = [],
+        boxs = [];
+      const { length: lineLength } = board;
+
+      const boxWith = Math.round(board.length / 3);
+      const boxHeight = 3;
+      // init
+      for (let i = 0; i < lineLength; i++) {
+        const line = board[i];
+        const { length: columnLength } = line;
+        for (let j = 0; j < columnLength; j++) {
+          const val = board[i][j];
+          const ele = document.createElement("span");
+          ele.textContent = val;
+          ele.id = `n${i}${j}`;
+          document.body.append(ele);
+          if (!lines[i]) {
+            lines[i] = [];
+          }
+          if (!columns[j]) {
+            columns[j] = [];
+          }
+          if (!boxs[Math.floor(i / boxWith)]) {
+            boxs[Math.floor(i / boxWith)] = [];
+            if (!boxs[Math.floor(i / boxWith)][Math.floor(j / boxHeight)]) {
+              boxs[Math.floor(i / boxWith)][Math.floor(j / boxHeight)] = [];
             }
-            document.body.append(document.createElement('br'))
+          } else {
+            if (!boxs[Math.floor(i / boxWith)][Math.floor(j / boxHeight)]) {
+              boxs[Math.floor(i / boxWith)][Math.floor(j / boxHeight)] = [];
+            }
+          }
+          if (val !== "." || val != 0) {
+            const key = val - 1;
+            lines[i][key] =
+              columns[j][key] =
+              boxs[Math.floor(i / boxWith)][Math.floor(j / boxHeight)][key] =
+                true;
+          }
         }
-        // init end
+        document.body.append(document.createElement("br"));
+      }
+      // init end
 
-
-        for (let i = 0; i < lineLength; i++) {
-            const line = board[i]
-            const { length: cloumnLength } = line
-            for (let j = 0; j < cloumnLength; j++) {
-                const val = board[i][j]
-                if (val === '.') {
-                    const res = await fullNum(i * 9 + j)
-                }
-            }
+      for (let i = 0; i < lineLength; i++) {
+        const line = board[i];
+        const { length: columnLength } = line;
+        for (let j = 0; j < columnLength; j++) {
+          const val = board[i][j];
+          if (val === "." || val == 0) {
+            const res = await fullNum(i * board.length + j);
+          }
         }
+      }
 
-        async function fullNum(index) {
-            if (index > 80) {
-                return true
-            }
-            const i = Math.floor(index / 9)
-            const j = index - i * 9
-            if (board[i][j] === '.') {
-                for (let k = 0; k < 9; k++) {
-                    if (!lines[i][k] && !cloumns[j][k] && !boxs[Math.floor(i / 3)][Math.floor(j / 3)][k]) {
-                        lines[i][k] = cloumns[j][k] = boxs[Math.floor(i / 3)][Math.floor(j / 3)][k] = true
-                        const dom = document.getElementById(`n${i}${j}`)
-                        dom.textContent = k + 1
-                        dom.style.backgroundColor = 'green'
-                        board[i][j] = `${k + 1}`
-                        //await sleep(300)
-                        const res = await fullNum(index + 1)
-                        if (res === true) {
-                            return true
-                        } else {
-                            lines[i][k] = cloumns[j][k] = boxs[Math.floor(i / 3)][Math.floor(j / 3)][k] = false
-                            dom.textContent = '.'
-                            board[i][j] = '.'
-                            dom.style.backgroundColor = 'white'
-                            continue
-                        }
-                        break
-                    }
-                }
-            } else {
-                return fullNum(index + 1)
-            }
-
+      async function fullNum(index) {
+        if (index > 80) {
+          return true;
         }
+        const i = Math.floor(index / board.length);
+        const j = index - i * board.length;
 
+        if (board[i][j] === "." || board[i][j] == 0) {
+          for (let k = 0; k < board.length; k++) {
+            if (
+              !lines[i][k] &&
+              !columns[j][k] &&
+              !boxs[Math.floor(i / boxWith)][Math.floor(j / boxHeight)][k]
+            ) {
+              lines[i][k] =
+                columns[j][k] =
+                boxs[Math.floor(i / boxWith)][Math.floor(j / boxHeight)][k] =
+                  true;
+              const dom = document.getElementById(`n${i}${j}`);
+              dom.textContent = k + 1;
+              dom.style.backgroundColor = "green";
+              board[i][j] = `${k + 1}`;
+              await sleep(300);
+              const res = await fullNum(index + 1);
+              if (res === true) {
+                return true;
+              } else {
+                lines[i][k] =
+                  columns[j][k] =
+                  boxs[Math.floor(i / boxWith)][Math.floor(j / boxHeight)][k] =
+                    false;
+                dom.textContent = "0";
+                board[i][j] = "0";
+                dom.style.backgroundColor = "white";
+                continue;
+              }
+              break;
+            }
+          }
+        } else {
+          return fullNum(index + 1);
+        }
+      }
     };
 
     function sleep(time) {
-        return new Promise((resolve) => {
-            setTimeout(resolve, time);
-        })
+      return new Promise((resolve) => {
+        setTimeout(resolve, time);
+      });
     }
 
-
-
-    solveSudoku(input)
-
-    console.log('input', input)
-
-
-
+    solveSudoku(input);
+  }
 </script>
