@@ -33,8 +33,9 @@
     ] 
     </textarea>
     <br />
-    <button onclick="main()">确定</button>
-    <div></div>
+    <button onclick="main()">演示过程</button>
+    <button onclick="main(true)">立即解答</button>
+    <div class="answer"></div>
   </body>
 </html>
 
@@ -60,18 +61,11 @@
       this.style.height = this.scrollHeight + "px";
     }
   });
-  // var input = [
-  //   [0, 0, 0, 2, 0, 6],
-  //   [0, 0, 0, 0, 0, 3],
-  //   [0, 0, 5, 0, 3, 1],
-  //   [6, 3, 0, 4, 0, 0],
-  //   [5, 0, 0, 0, 0, 0],
-  //   [1, 0, 3, 0, 0, 0],
-  // ];
 
-  function main() {
-    console.log("run");
+  function main(isQuick) {
+    const answer = document.querySelector(".answer");
     const textarea = document.querySelector("textarea");
+    answer.innerHTML = "";
     input = JSON.parse(textarea.value);
     var solveSudoku = async function (board) {
       const lines = [],
@@ -90,7 +84,7 @@
           const ele = document.createElement("span");
           ele.textContent = val;
           ele.id = `n${i}${j}`;
-          document.body.append(ele);
+          answer.append(ele);
           if (!lines[i]) {
             lines[i] = [];
           }
@@ -115,7 +109,7 @@
                 true;
           }
         }
-        document.body.append(document.createElement("br"));
+        answer.append(document.createElement("br"));
       }
       // init end
 
@@ -152,7 +146,9 @@
               dom.textContent = k + 1;
               dom.style.backgroundColor = "green";
               board[i][j] = `${k + 1}`;
-              await sleep(300);
+              if (!isQuick) {
+                await sleep(300);
+              }
               const res = await fullNum(index + 1);
               if (res === true) {
                 return true;
