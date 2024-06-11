@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Web Worker</title>
+  </head>
+  <body>
+    WebWorker
+  </body>
+</html>
+<script>
+  const code = `
+  this.onmessage = function(e) {
+    const newValue = e.data + 1
+    postMessage(newValue)
+  }
+  `;
+  const blob = new Blob([code], { type: "text/javascript" });
+  const url = URL.createObjectURL(blob);
+  const worker = new Worker(url);
+  worker.onmessage = function (e) {
+    console.log("new value=>", e.data);
+  };
+  worker.postMessage(1);
+</script>
