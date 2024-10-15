@@ -61,7 +61,7 @@ function map(arr, fn) {
   const new_array = [];
   // 遍历数组
   for (let i = 0; i < arr.length; i++) {
-    // 去除当前遍历到的元素
+    // 取出当前遍历到的元素
     const item = arr[i];
     // 将元素 item 作为参数传递给 fn 并且运行得到一个新的 元素 newItem
     const newItem = fn(item);
